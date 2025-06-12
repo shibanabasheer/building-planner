@@ -13,7 +13,7 @@ export default function DrawingCanvas({ selectedTool, showAnnotations }) {
   useEffect(() => {
     const fetchShapes = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/shapes');
+        const res = await axios.get('https://building-planner-vs8p.onrender.com/shapes');
         setShapes(res.data);
       } catch (err) {
         console.error("Error fetching shapes:", err);
@@ -104,7 +104,7 @@ export default function DrawingCanvas({ selectedTool, showAnnotations }) {
       const newShapes = [...shapes, currentShape];
       setShapes(newShapes);
       try {
-        await axios.post('http://localhost:5000/shapes', currentShape);
+        await axios.post('https://building-planner-vs8p.onrender.com/shapes', currentShape);
       } catch (err) {
         console.error("Error saving shape:", err);
       }
@@ -179,21 +179,10 @@ export default function DrawingCanvas({ selectedTool, showAnnotations }) {
       setShapes(updatedShapes);
       setSelectedShapeIndex(null);
       try {
-        await axios.delete(`http://localhost:5000/shapes/${shapeToDelete._id}`);
+        await axios.delete(`https://building-planner-vs8p.onrender.com/shapes/${shapeToDelete._id}`);
       } catch (err) {
         console.error("Error deleting shape:", err);
       }
-    }
-  };
-
-  const clearCanvas = async () => {
-    setShapes([]);
-    setCurrentShape(null);
-    setSelectedShapeIndex(null);
-    try {
-      await axios.delete('http://localhost:5000/shapes'); // backend should support this route
-    } catch (err) {
-      console.error("Error clearing shapes:", err);
     }
   };
 
